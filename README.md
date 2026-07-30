@@ -30,7 +30,7 @@ A full-stack room reservation application with **Spring Boot** (backend) and **A
 
 ```powershell
 cd back
-.\mvnw.cmd spring-boot:run
+mvn spring-boot:run
 ```
 
 ### Frontend (port 4200)
