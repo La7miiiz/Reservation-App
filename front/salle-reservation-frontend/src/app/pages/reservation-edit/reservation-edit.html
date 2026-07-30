@@ -1,0 +1,60 @@
+<div class="page-layout">
+  <app-side-nav></app-side-nav>
+  <app-navbar></app-navbar>
+
+  <main class="page-content">
+    <div class="page-header">
+      <h1>Modifier la r&eacute;servation</h1>
+    </div>
+
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner-lg"></div>
+      <p>Chargement...</p>
+    </div>
+
+    <div *ngIf="!loading" class="edit-wrapper">
+      <div class="card edit-form-card">
+        <form [formGroup]="editForm" (ngSubmit)="submit()">
+          <div class="form-group">
+            <label for="room">Salle</label>
+            <select id="room" formControlName="room">
+              <option *ngFor="let r of rooms" [value]="r.id">{{ r.nom }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Date</label>
+            <app-date-picker formControlName="date"></app-date-picker>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Heure de d&eacute;but</label>
+              <app-time-picker #startPicker formControlName="startTime"></app-time-picker>
+            </div>
+            <div class="form-group">
+              <label>Heure de fin</label>
+              <app-time-picker #endPicker formControlName="endTime"></app-time-picker>
+            </div>
+          </div>
+
+          <div *ngIf="isAdmin" class="form-group">
+            <label for="statut">Statut</label>
+            <select id="statut" formControlName="statut">
+              <option value="ACTIVE">Active</option>
+              <option value="EXPIREE">Expir&eacute;e</option>
+            </select>
+          </div>
+
+          <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+          <div *ngIf="success" class="alert alert-success">R&eacute;servation modifi&eacute;e avec succ&egrave;s !</div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Enregistrer</button>
+            <button type="button" class="btn btn-ghost" (click)="onCancel()">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

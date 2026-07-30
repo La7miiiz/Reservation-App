@@ -1,0 +1,15 @@
+<div class="avatar-picker-overlay" (click)="closePicker.emit()">
+  <div class="avatar-picker-window" (click)="$event.stopPropagation()">
+    <h3>Choisissez un avatar</h3>
+    <div class="avatar-gallery">
+      <img 
+        *ngFor="let seed of avatarSeeds"
+        [src]="'https://api.dicebear.com/9.x/thumbs/svg?seed=' + seed"
+        [alt]="seed"
+        class="avatar-thumb"
+        (click)="selectAvatar(seed)"
+      />
+    </div>
+    <button (click)="closePicker.emit()">Fermer</button>
+  </div>
+</div>

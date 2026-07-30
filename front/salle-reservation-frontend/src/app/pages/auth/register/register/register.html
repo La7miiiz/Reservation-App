@@ -1,0 +1,77 @@
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-left">
+      <div class="auth-brand">
+        <span class="brand-icon">&#9681;</span>
+        <span class="brand-text">Room<span>Reserve</span></span>
+      </div>
+      <h1>Cr&eacute;er un compte</h1>
+      <p class="auth-tagline">Rejoignez la plateforme de r&eacute;servation</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <div class="form-group">
+          <label for="nom">Nom complet</label>
+          <input
+            id="nom"
+            type="text"
+            formControlName="nom"
+            placeholder="Votre nom"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Adresse email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="exemple@entreprise.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="motDePasse"
+            placeholder="Minimum 6 caract&egrave;res"
+          />
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-error">
+          {{ errorMessage }}
+        </div>
+
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-full" [disabled]="registerForm.invalid || loading">
+          <span *ngIf="loading" class="spinner"></span>
+          {{ loading ? 'Cr&eacute;ation...' : 'Cr&eacute;er mon compte' }}
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        D&eacute;j&agrave; inscrit ?
+        <a (click)="goToLogin()" class="link">Se connecter</a>
+      </p>
+    </div>
+
+    <div class="auth-right">
+      <div class="auth-illustration">
+        <div class="illustration-card">
+          <div class="ill-icon">&#9681;</div>
+          <h3>Inscription rapide</h3>
+          <p>Cr&eacute;ez votre compte en quelques secondes</p>
+        </div>
+        <div class="illustration-card">
+          <div class="ill-icon">&#9673;</div>
+          <h3>Acc&egrave;s imm&eacute;diat</h3>
+          <p>Commencez &agrave; r&eacute;server d&egrave;s maintenant</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

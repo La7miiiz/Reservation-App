@@ -1,0 +1,42 @@
+<div class="page-layout">
+  <app-side-nav></app-side-nav>
+  <app-navbar></app-navbar>
+
+  <main class="page-content">
+    <div class="page-header">
+      <h1>Modifier la salle</h1>
+    </div>
+
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner-lg"></div>
+      <p>Chargement...</p>
+    </div>
+
+    <div *ngIf="!loading" class="card form-card">
+      <form [formGroup]="roomForm" (ngSubmit)="submitRoom()">
+        <div class="form-group">
+          <label for="nom">Nom de la salle</label>
+          <input id="nom" formControlName="nom" required />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" formControlName="description" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="capacite">Capacit&eacute;</label>
+          <input id="capacite" type="number" min="1" formControlName="capacite" required />
+        </div>
+
+        <div *ngIf="success" class="alert alert-success">Salle modifi&eacute;e avec succ&egrave;s !</div>
+        <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="roomForm.invalid">Enregistrer</button>
+          <button type="button" class="btn btn-ghost" routerLink="/rooms">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

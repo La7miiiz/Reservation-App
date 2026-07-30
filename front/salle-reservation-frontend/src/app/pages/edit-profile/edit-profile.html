@@ -1,0 +1,68 @@
+<div class="page-layout">
+  <app-side-nav></app-side-nav>
+  <app-navbar></app-navbar>
+
+  <main class="page-content">
+    <div class="page-header">
+      <h1>Modifier mon profil</h1>
+    </div>
+
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner-lg"></div>
+      <p>Chargement...</p>
+    </div>
+
+    <div *ngIf="!loading" class="card form-card">
+      <form *ngIf="editForm" [formGroup]="editForm" (ngSubmit)="saveProfile()">
+        <div class="avatar-section">
+          <img
+            [src]="'https://api.dicebear.com/9.x/thumbs/svg?seed=' + avatarSeed"
+            alt="Avatar"
+            class="edit-avatar"
+          />
+          <button type="button" class="btn btn-outline btn-sm" (click)="showAvatarPicker = true">
+            Changer l'avatar
+          </button>
+        </div>
+
+        <app-avatar-picker
+          *ngIf="showAvatarPicker"
+          [username]="editForm.get('nom')?.value || 'user'"
+          (avatarSelected)="onAvatarSelected($event)"
+          (closePicker)="showAvatarPicker = false"
+        ></app-avatar-picker>
+
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input id="nom" formControlName="nom" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" formControlName="email" type="email" />
+        </div>
+
+        <hr class="divider" />
+        <p class="password-hint">Laissez vide pour conserver le mot de passe actuel</p>
+
+        <div class="form-group">
+          <label for="oldPassword">Ancien mot de passe</label>
+          <input id="oldPassword" formControlName="oldPassword" type="password" autocomplete="current-password" />
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">Nouveau mot de passe</label>
+          <input id="newPassword" formControlName="newPassword" type="password" autocomplete="new-password" />
+        </div>
+
+        <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+        <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Enregistrer</button>
+          <button type="button" class="btn btn-ghost" (click)="cancelEdit()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
